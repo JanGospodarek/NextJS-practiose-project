@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import Head from "next/head";
 import { Fragment } from "react";
 import MeetupList from "../components/meetups/MeetupList";
-
+import { url } from "../config";
 function HomePage(props) {
   return (
     <Fragment>
@@ -16,9 +16,7 @@ function HomePage(props) {
 }
 
 export async function getStaticProps() {
-  const client = await MongoClient.connect(
-    "mongodb+srv://janGospodarek:pietrzejowice92@cluster0.3qtkkuv.mongodb.net/meetups?retryWrites=true&w=majority"
-  );
+  const client = await MongoClient.connect(url);
   const db = client.db();
   const meetupsCollection = db.collection("meetups");
   const meetupsMongo = await meetupsCollection.find().toArray();
